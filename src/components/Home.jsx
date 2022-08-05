@@ -24,7 +24,7 @@ function Home() {
         <HomeGraphic>
           <div>
             <div>What are you waiting for ?</div>
-            <div className="offer-tag">Hurry up 'till the offer🎉 exists !</div>
+            <div className="offer-tag">Hurry up 'till it's free🎉</div>
           </div>
         </HomeGraphic>
       </HomeContent>

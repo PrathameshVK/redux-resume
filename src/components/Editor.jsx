@@ -15,16 +15,15 @@ import { StyledAddButton } from "./styles/Buttons/AddButton";
 import { MdClose, MdArrowBack, MdArrowForward } from "react-icons/md";
 
 function Editor() {
+  const [objective, setObjective] = useState("");
   const [personalDetails, setPersonalDetails] = useState({
     name: "PK",
-    birthDate: "",
     contactDetails: {
       email: "",
       phone: "",
     },
   });
   const [newEducation, setNewEducation] = useState({
-    graduationLevel: "",
     graduationDegree: "",
     collegeName: "",
     passingYear: "",
@@ -32,6 +31,11 @@ function Editor() {
   const [educationDetails, setEducationDetails] = useState([]);
   const [skill, setSkill] = useState("");
   const [skillList, setSkillList] = useState([]);
+  const [newProject, setNewProject] = useState({
+    name: "",
+    details: "",
+  });
+  const [projectsList, setProjectsList] = useState([]);
   const [workExp, setWorkExp] = useState({
     companyName: "",
     position: "",
@@ -48,20 +52,15 @@ function Editor() {
     });
   };
 
+  const handleObjective = (event) => {
+    setObjective(event.target.value);
+  };
+
   const handleName = (event) => {
     setPersonalDetails((prevState) => {
       return {
         ...prevState,
         name: event.target.value,
-      };
-    });
-  };
-
-  const handleBirthDate = (event) => {
-    setPersonalDetails((prevState) => {
-      return {
-        ...prevState,
-        birthDate: event.target.value,
       };
     });
   };
@@ -86,15 +85,6 @@ function Editor() {
           ...prevState.contactDetails,
           phone: event.target.value,
         },
-      };
-    });
-  };
-
-  const handleGraduationLevel = (event) => {
-    setNewEducation((prevState) => {
-      return {
-        ...prevState,
-        graduationLevel: event.target.value,
       };
     });
   };
@@ -135,6 +125,32 @@ function Editor() {
     setSkill("");
   };
 
+  const handleProjectName = (event) => {
+    setNewProject((prevState) => {
+      return {
+        ...prevState,
+        name: event.target.value,
+      };
+    });
+  };
+
+  const handleProjectDetails = (event) => {
+    setNewProject((prevState) => {
+      return {
+        ...prevState,
+        details: event.target.value,
+      };
+    });
+  };
+
+  const addNewProject = () => {
+    setProjectsList((prevState) => [...prevState, newProject]);
+    setNewProject({
+      name: "",
+      details: "",
+    });
+  };
+
   const handleCompanyName = (event) => {
     setWorkExp((prevState) => {
       return {
@@ -165,10 +181,12 @@ function Editor() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setObjective(resumeData.objective);
     setPersonalDetails(resumeData.personalDetails);
     setEducationDetails(resumeData.educationDetails);
     setSkillList(resumeData.skills);
     setWorkExpList(resumeData.workExperience);
+    setProjectsList(resumeData.projects);
   }, [resumeData]);
 
   return (
@@ -181,6 +199,20 @@ function Editor() {
       </div>
       <StyledSection>
         <div>
+          <h1>Objective</h1>
+          <p>Speak up !</p>
+        </div>
+        <div>
+          <StyledInputText
+            type="text"
+            placeholder="objective"
+            value={objective || ""}
+            onChange={handleObjective}
+          />
+        </div>
+      </StyledSection>
+      <StyledSection>
+        <div>
           <h1>Personal Details</h1>
           <p>Bit of personal</p>
         </div>
@@ -190,13 +222,6 @@ function Editor() {
             placeholder="name"
             value={personalDetails.name || ""}
             onChange={handleName}
-          />
-          <br />
-          <StyledInputText
-            type="date"
-            placeholder="birth date"
-            value={personalDetails.birthDate || ""}
-            onChange={handleBirthDate}
           />
           <br />
           <StyledInputText
@@ -220,13 +245,6 @@ function Editor() {
           <p>What did you study ?</p>
         </div>
         <div>
-          <StyledInputText
-            type="text"
-            value={newEducation.graduationLevel || ""}
-            placeholder="graduation level"
-            onChange={handleGraduationLevel}
-          />
-          <br />
           <StyledInputText
             type="text"
             value={newEducation.graduationDegree || ""}
@@ -312,6 +330,51 @@ function Editor() {
       </StyledSection>
       <StyledSection>
         <div>
+          <h1>Projects</h1>
+          <p>Tell us what did you build !</p>
+        </div>
+        <div>
+          <StyledInputText
+            type="text"
+            value={newProject.name || ""}
+            onChange={handleProjectName}
+            placeholder="project name"
+          />
+          <br />
+          <StyledInputText
+            type="text"
+            value={newProject.details || ""}
+            onChange={handleProjectDetails}
+            placeholder="project details"
+          />
+          <br />
+          <StyledAddButton onClick={addNewProject}>Add</StyledAddButton>
+          <StyledItemList>
+            {projectsList &&
+              projectsList.map((project, key) => {
+                return (
+                  <ItemCard key={key}>
+                    <div className="header">
+                      <div className="header-name">
+                        <span>{project.name}</span>
+                      </div>
+                      <MdClose
+                        onClick={() => {
+                          setProjectsList(
+                            projectsList.filter((project, id) => id !== key)
+                          );
+                        }}
+                      />
+                    </div>
+                    <div className="item-details">{project.details}</div>
+                  </ItemCard>
+                );
+              })}
+          </StyledItemList>
+        </div>
+      </StyledSection>
+      <StyledSection>
+        <div>
           <h1>Work Experience</h1>
           <p>Add your work experience here</p>
         </div>
@@ -360,10 +423,12 @@ function Editor() {
           onClick={() => {
             dispatch(
               editResume({
+                objective: objective,
                 personalDetails: personalDetails,
                 educationDetails: educationDetails,
                 skills: skillList,
                 workExperience: workExpList,
+                projects: projectsList,
               })
             );
             navigate("/preview");

@@ -2,9 +2,9 @@ import { EDIT_RESUME } from "./resumeTypes";
 
 const initialState = {
   resumeData: {
+    objective: "",
     personalDetails: {
       name: "",
-      birthData: "",
       contactDetails: {
         email: "",
         phone: "",
@@ -12,6 +12,7 @@ const initialState = {
     },
     educationDetails: [],
     skills: [],
+    projects: [],
     workExperience: [],
   },
 };
@@ -22,9 +23,9 @@ const resumeReducer = (state = initialState, action) => {
       return {
         ...state,
         resumeData: {
+          objective: action.payload.objective,
           personalDetails: {
             name: action.payload.personalDetails.name,
-            birthDate: action.payload.personalDetails.birthDate,
             contactDetails: {
               email: action.payload.personalDetails.contactDetails.email,
               phone: action.payload.personalDetails.contactDetails.phone,
@@ -32,6 +33,7 @@ const resumeReducer = (state = initialState, action) => {
           },
           educationDetails: action.payload.educationDetails,
           skills: action.payload.skills,
+          projects: action.payload.projects,
           workExperience: action.payload.workExperience,
         },
       };
