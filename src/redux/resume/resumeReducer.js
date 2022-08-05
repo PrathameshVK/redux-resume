@@ -3,23 +3,16 @@ import { EDIT_RESUME } from "./resumeTypes";
 const initialState = {
   resumeData: {
     personalDetails: {
-      name: "Prathamesh Kulkarni",
-      birthData: "24/08/1998",
+      name: "",
+      birthData: "",
       contactDetails: {
-        email: "pk@gmail.com",
-        phone: "9876543210",
+        email: "",
+        phone: "",
       },
     },
-    educationDetails: {
-      graduationDetails: {
-        collegeName: "willingdon college",
-        graduationYear: "2019",
-      },
-      postGraduationDetails: {
-        collegeName: "CSIBER college",
-        graduationYear: "2022",
-      },
-    },
+    educationDetails: [],
+    skills: [],
+    workExperience: [],
   },
 };
 
@@ -37,23 +30,9 @@ const resumeReducer = (state = initialState, action) => {
               phone: action.payload.personalDetails.contactDetails.phone,
             },
           },
-          educationDetails: {
-            graduationDetails: {
-              collegeName:
-                action.payload.educationDetails.graduationDetails.collegeName,
-              graduationYear:
-                action.payload.educationDetails.graduationDetails
-                  .graduationYear,
-            },
-            postGraduationDetails: {
-              collegeName:
-                action.payload.educationDetails.postGraduationDetails
-                  .collegeName,
-              graduationYear:
-                action.payload.educationDetails.postGraduationDetails
-                  .graduationYear,
-            },
-          },
+          educationDetails: action.payload.educationDetails,
+          skills: action.payload.skills,
+          workExperience: action.payload.workExperience,
         },
       };
     default:
