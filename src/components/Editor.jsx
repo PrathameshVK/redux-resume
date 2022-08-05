@@ -2,6 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { editResume } from "../redux";
+import { StyledButton } from "./styles/Buttons/Button";
+import {
+  StyledEditor,
+  StyledSection,
+  StyledInputText,
+  StyledSkillsList,
+  StyledItemList,
+  ItemCard,
+} from "../components/styles/Editor.styles";
+import { StyledAddButton } from "./styles/Buttons/AddButton";
+import { MdClose, MdArrowBack, MdArrowForward } from "react-icons/md";
 
 function Editor() {
   const [personalDetails, setPersonalDetails] = useState({
@@ -161,123 +172,191 @@ function Editor() {
   }, [resumeData]);
 
   return (
-    <div>
+    <StyledEditor>
       <div>
-        <button onClick={() => navigate("/")}>go home</button>
+        <StyledButton variant="outline" onClick={() => navigate("/")}>
+          <MdArrowBack />
+          <div>go home</div>
+        </StyledButton>
       </div>
-      <div>
-        <h1>Personal Details</h1>
-        <input
-          type="text"
-          placeholder="name"
-          value={personalDetails.name || ""}
-          onChange={handleName}
-        />
-        <br />
-        <input
-          type="date"
-          placeholder="birth date"
-          value={personalDetails.birthDate || ""}
-          onChange={handleBirthDate}
-        />
-        <br />
-        <input
-          type="email"
-          placeholder="email"
-          value={personalDetails.contactDetails.email || ""}
-          onChange={handleEmail}
-        />
-        <br />
-        <input
-          type="text"
-          placeholder="phone"
-          value={personalDetails.contactDetails.phone || ""}
-          onChange={handlePhone}
-        />
-      </div>
-      <br />
-      <div>
-        <h1>Education Details</h1>
+      <StyledSection>
         <div>
-          <h3>Graduation Details</h3>
-          <input
+          <h1>Personal Details</h1>
+          <p>Bit of personal</p>
+        </div>
+        <div>
+          <StyledInputText
+            type="text"
+            placeholder="name"
+            value={personalDetails.name || ""}
+            onChange={handleName}
+          />
+          <br />
+          <StyledInputText
+            type="date"
+            placeholder="birth date"
+            value={personalDetails.birthDate || ""}
+            onChange={handleBirthDate}
+          />
+          <br />
+          <StyledInputText
+            type="email"
+            placeholder="email"
+            value={personalDetails.contactDetails.email || ""}
+            onChange={handleEmail}
+          />
+          <br />
+          <StyledInputText
+            type="text"
+            placeholder="phone"
+            value={personalDetails.contactDetails.phone || ""}
+            onChange={handlePhone}
+          />
+        </div>
+      </StyledSection>
+      <StyledSection>
+        <div>
+          <h1>Education Details</h1>
+          <p>What did you study ?</p>
+        </div>
+        <div>
+          <StyledInputText
             type="text"
             value={newEducation.graduationLevel || ""}
             placeholder="graduation level"
             onChange={handleGraduationLevel}
           />
           <br />
-          <input
+          <StyledInputText
             type="text"
             value={newEducation.graduationDegree || ""}
             placeholder="graduation degree"
             onChange={handleGraduationDegree}
           />
           <br />
-          <input
+          <StyledInputText
             type="text"
             value={newEducation.collegeName || ""}
             placeholder="college name"
             onChange={handleGraduationCollegeName}
           />
           <br />
-          <input
+          <StyledInputText
             type="text"
             value={newEducation.passingYear || ""}
             placeholder="passing year"
             onChange={handleGraduationPassingYear}
           />
           <br />
-          <button onClick={addNewEducation}>Add</button>
+          <StyledAddButton onClick={addNewEducation}>Add</StyledAddButton>
+          <StyledItemList>
+            {educationDetails &&
+              educationDetails.map((item, key) => {
+                return (
+                  <ItemCard key={key}>
+                    <div className="header">
+                      <div className="header-name">
+                        <b>{item.graduationDegree}</b>
+                      </div>
+                      <MdClose
+                        onClick={() => {
+                          setEducationDetails(
+                            educationDetails.filter(
+                              (educationItem, id) => id !== key
+                            )
+                          );
+                        }}
+                      />
+                    </div>
+                    <div className="item-details">
+                      {item.collegeName}, {item.passingYear}
+                    </div>
+                  </ItemCard>
+                );
+              })}
+          </StyledItemList>
+        </div>
+      </StyledSection>
+      <StyledSection>
+        <div>
+          <h1>Skills</h1>
+          <p>Tell us about your skills</p>
         </div>
         <div>
-          {educationDetails &&
-            educationDetails.map((item, key) => {
-              return <div key={key}>{item.graduationLevel}</div>;
-            })}
+          <StyledInputText
+            value={skill}
+            onChange={handleSkill}
+            type="text"
+            placeholder="skill"
+          />
+          <br />
+          <StyledAddButton onClick={addSkill}>Add</StyledAddButton>
+          <StyledSkillsList>
+            {skillList &&
+              skillList.map((skill, key) => {
+                return (
+                  <div key={key}>
+                    {skill}
+                    <MdClose
+                      onClick={() => {
+                        setSkillList(
+                          skillList.filter((skillItem, id) => id !== key)
+                        );
+                      }}
+                    />
+                  </div>
+                );
+              })}
+          </StyledSkillsList>
         </div>
-      </div>
-      <div>
-        <h3>Skills</h3>
-        <input value={skill} onChange={handleSkill} type="text"></input>
-        <button onClick={addSkill}>Add skill</button>
+      </StyledSection>
+      <StyledSection>
         <div>
-          {skillList &&
-            skillList.map((skill, key) => {
-              return <div key={key}>{skill}</div>;
-            })}
+          <h1>Work Experience</h1>
+          <p>Add your work experience here</p>
         </div>
-      </div>
-      <div>
-        <h3>Work Experience</h3>
-        <input
-          type="text"
-          value={workExp.companyName || ""}
-          onChange={handleCompanyName}
-          placeholder="company name"
-        />
-        <input
-          type="text"
-          value={workExp.position || ""}
-          onChange={handlePosition}
-          placeholder="position"
-        />
-        <button onClick={addNewWork}>Add</button>
         <div>
-          {workExpList &&
-            workExpList.map((work, key) => {
-              return (
-                <div key={key}>
-                  <b>{work.companyName}</b>
-                  <br />
-                  {work.position}
-                </div>
-              );
-            })}
+          <StyledInputText
+            type="text"
+            value={workExp.companyName || ""}
+            onChange={handleCompanyName}
+            placeholder="company name"
+          />
+          <br />
+          <StyledInputText
+            type="text"
+            value={workExp.position || ""}
+            onChange={handlePosition}
+            placeholder="position"
+          />
+          <br />
+          <StyledAddButton onClick={addNewWork}>Add</StyledAddButton>
+          <StyledItemList>
+            {workExpList &&
+              workExpList.map((work, key) => {
+                return (
+                  <ItemCard key={key}>
+                    <div className="header">
+                      <div className="header-name">
+                        <span>{work.companyName}</span>
+                      </div>
+                      <MdClose
+                        onClick={() => {
+                          setWorkExpList(
+                            workExpList.filter((workItem, id) => id !== key)
+                          );
+                        }}
+                      />
+                    </div>
+                    <div className="item-details">{work.position}</div>
+                  </ItemCard>
+                );
+              })}
+          </StyledItemList>
         </div>
-      </div>
+      </StyledSection>
       <div>
-        <button
+        <StyledButton
           onClick={() => {
             dispatch(
               editResume({
@@ -290,10 +369,11 @@ function Editor() {
             navigate("/preview");
           }}
         >
-          Preview
-        </button>
+          <div>Preview</div>
+          <MdArrowForward />
+        </StyledButton>
       </div>
-    </div>
+    </StyledEditor>
   );
 }
 

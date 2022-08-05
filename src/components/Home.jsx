@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { StyledButton } from "./styles/Buttons/Button";
 import { HomeDiv, HomeContent, HomeGraphic, Intro } from "./styles/Home.styles";
-import resumeImage from "../assets/resume.png";
+import { MdArrowForward } from "react-icons/md";
 
 function Home() {
   const navigate = useNavigate();
@@ -10,16 +10,22 @@ function Home() {
     <HomeDiv>
       <HomeContent>
         <Intro>
-          <h1>Hi there !</h1>
-          <p>
-            Create your <span>resume</span> now !
-          </p>
-          <StyledButton onClick={() => navigate("/edit")}>
-            Create now
-          </StyledButton>
+          <div>
+            <h1>Hi there !</h1>
+            <p>
+              Create your <span>resume</span> now !
+            </p>
+            <StyledButton onClick={() => navigate("/edit")}>
+              <div>Create now</div>
+              <MdArrowForward />
+            </StyledButton>
+          </div>
         </Intro>
         <HomeGraphic>
-          <img src={resumeImage} alt="resume"></img>
+          <div>
+            <div>What are you waiting for ?</div>
+            <div className="offer-tag">Hurry up 'till the offer🎉 exists !</div>
+          </div>
         </HomeGraphic>
       </HomeContent>
     </HomeDiv>

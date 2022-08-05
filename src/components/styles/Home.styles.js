@@ -12,14 +12,18 @@ export const HomeDiv = styled.div`
 export const HomeContent = styled.div`
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap-reverse;
+  flex-wrap: wrap;
   justify-content: center;
   width: 75vw;
   margin: auto;
 `;
 
 export const Intro = styled.div`
-  width: 400px;
+  width: 550px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin: auto;
   h1 {
     font-size: 3.5rem;
@@ -27,6 +31,7 @@ export const Intro = styled.div`
   }
   p {
     font-size: 2.5rem;
+    color: #606060;
     span {
       color: #4caf50;
     }
@@ -34,12 +39,23 @@ export const Intro = styled.div`
 `;
 
 export const HomeGraphic = styled.div`
-  width: 700px;
+  width: 500px;
+  height: 90vh;
+  border-radius: 10px;
+  color: white;
+  background-color: #5ccd60;
   display: flex;
+  flex-direction: column;
   align-items: center;
   margin: auto;
-  img {
+  div {
     width: 90%;
-    height: auto;
+    margin: auto;
+    font-size: 3rem;
+    text-align: center;
+    word-wrap: break-word;
+  }
+  .offer-tag {
+    font-size: 2.3rem;
   }
 `;

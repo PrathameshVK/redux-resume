@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
 export const StyledButton = styled.button`
+  display: flex;
+  justify-content: space-between;
   border: ${(props) =>
     props.variant === "outline" ? "2px solid #4caf50" : "none"};
   padding: 15px 20px;
   border-radius: 10px;
+  width: 150px;
   cursor: pointer;
   font-size: 1rem;
   transition: 0.5s all ease-out;
