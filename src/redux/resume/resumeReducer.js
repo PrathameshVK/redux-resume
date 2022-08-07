@@ -2,7 +2,7 @@ import { EDIT_RESUME } from "./resumeTypes";
 
 const initialState = {
   resumeData: {
-    objective: "",
+    personalProfile: "",
     personalDetails: {
       name: "",
       contactDetails: {
@@ -23,7 +23,7 @@ const resumeReducer = (state = initialState, action) => {
       return {
         ...state,
         resumeData: {
-          objective: action.payload.objective,
+          personalProfile: action.payload.personalProfile,
           personalDetails: {
             name: action.payload.personalDetails.name,
             contactDetails: {

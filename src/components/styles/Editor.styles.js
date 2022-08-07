@@ -1,21 +1,5 @@
 import styled from "styled-components";
 
-export const StyledInputText = styled.input`
-  border: none;
-  height: 40px;
-  width: 400px;
-  margin: 10px auto;
-  padding: 10px;
-  color: black;
-  font-size: 1rem;
-  font-weight: bold;
-  background-color: #e3e3e3;
-  border-radius: 5px;
-  &:focus {
-    outline: 2px solid #4caf50;
-  }
-`;
-
 export const StyledEditor = styled.div`
   display: flex;
   width: 90%;
@@ -54,7 +38,10 @@ export const StyledSkillsList = styled.div`
   div {
     display: flex;
     gap: 5px;
+    word-break: break-all;
+    word-wrap: break-word;
     align-items: center;
+    max-width: 400px;
     padding: 5px 8px;
     border: 1px solid #4caf50;
     border-radius: 5px;
@@ -74,11 +61,14 @@ export const ItemCard = styled.div`
     display: flex;
     flex-direction: row;
     width: 100%;
+    word-wrap: break-word;
     justify-content: space-between;
   }
+  max-width: 400px;
   padding: 10px;
   border: 1px solid #4caf50;
   border-radius: 5px;
+  word-wrap: break-word;
   .header-name {
     color: #4caf50;
     font-size: 1rem;

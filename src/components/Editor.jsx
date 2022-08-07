@@ -6,16 +6,19 @@ import { StyledButton } from "./styles/Buttons/Button";
 import {
   StyledEditor,
   StyledSection,
-  StyledInputText,
   StyledSkillsList,
   StyledItemList,
   ItemCard,
 } from "../components/styles/Editor.styles";
+import {
+  StyledInputText,
+  StyledInputTextArea,
+} from "../components/styles/Inputs/Input";
 import { StyledAddButton } from "./styles/Buttons/AddButton";
 import { MdClose, MdArrowBack, MdArrowForward } from "react-icons/md";
 
 function Editor() {
-  const [objective, setObjective] = useState("");
+  const [personalProfile, setPersonalProfile] = useState("");
   const [personalDetails, setPersonalDetails] = useState({
     name: "PK",
     contactDetails: {
@@ -52,8 +55,8 @@ function Editor() {
     });
   };
 
-  const handleObjective = (event) => {
-    setObjective(event.target.value);
+  const handlePersonalProfile = (event) => {
+    setPersonalProfile(event.target.value);
   };
 
   const handleName = (event) => {
@@ -181,7 +184,7 @@ function Editor() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setObjective(resumeData.objective);
+    setPersonalProfile(resumeData.personalProfile);
     setPersonalDetails(resumeData.personalDetails);
     setEducationDetails(resumeData.educationDetails);
     setSkillList(resumeData.skills);
@@ -199,15 +202,16 @@ function Editor() {
       </div>
       <StyledSection>
         <div>
-          <h1>Objective</h1>
-          <p>Speak up !</p>
+          <h1>Personal Profile</h1>
+          <p>Write something about you. Keep it short and simple !</p>
         </div>
         <div>
-          <StyledInputText
+          <StyledInputTextArea
+            r
             type="text"
             placeholder="objective"
-            value={objective || ""}
-            onChange={handleObjective}
+            value={personalProfile || ""}
+            onChange={handlePersonalProfile}
           />
         </div>
       </StyledSection>
@@ -423,7 +427,7 @@ function Editor() {
           onClick={() => {
             dispatch(
               editResume({
-                objective: objective,
+                personalProfile: personalProfile,
                 personalDetails: personalDetails,
                 educationDetails: educationDetails,
                 skills: skillList,

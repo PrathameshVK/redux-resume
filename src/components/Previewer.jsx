@@ -3,7 +3,13 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { MdArrowBack, MdArrowDownward } from "react-icons/md";
 import { StyledButton } from "./styles/Buttons/Button";
-import { StyledPreview, ResumeSection } from "./styles/Previewer.styles";
+import {
+  StyledPreview,
+  ResumeSection,
+  ResumePage,
+  LeftSection,
+  RightSection,
+} from "./styles/Previewer.styles";
 import { PDFExport } from "@progress/kendo-react-pdf";
 
 function Previewer() {
@@ -23,82 +29,90 @@ function Previewer() {
       </div>
       <div>
         <h1>Preview</h1>
-        <PDFExport ref={pdfExportComponent}>
-          <ResumeSection>
-            <div className="name">
-              <div>{resumeData.personalDetails.name}</div>
-            </div>
-            <div className="contacts">
-              <div>{resumeData.personalDetails.contactDetails.email}</div>
-              <div>{resumeData.personalDetails.contactDetails.phone}</div>
-            </div>
-            <div>
-              <h2>Objective</h2>
-              <div>{resumeData.objective}</div>
-            </div>
-            <div>
-              <h2>Education details</h2>
-              <ul>
-                {resumeData.educationDetails.map((item, key) => {
-                  return (
-                    <li>
-                      <div key={key}>
-                        <div>
-                          <b>{item.graduationDegree}</b>
-                        </div>
-                        <div>{item.collegeName}</div>
-                        <div>{item.passingYear}</div>
-                      </div>
-                      <br />
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            <div>
-              <h2>skills</h2>
-              <div className="skills-list">
-                {resumeData.skills.map((skill, key) => {
-                  return <div key={key}>{skill}</div>;
-                })}
+        <ResumeSection>
+          <PDFExport ref={pdfExportComponent}>
+            <ResumePage>
+              <div className="name">
+                <div>{resumeData.personalDetails.name.toUpperCase()}</div>
               </div>
-            </div>
-            <div>
-              <h2>Projects</h2>
-              <ul>
-                {resumeData.projects.map((project, key) => {
-                  return (
-                    <li>
-                      <div key={key}>
-                        <b>{project.name}</b>
-                        <br />
-                        {project.details}
-                      </div>
-                      <br />
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            <div>
-              <h2>Work Experience</h2>
-              <ul>
-                {resumeData.workExperience.map((work, key) => {
-                  return (
-                    <li>
-                      <div key={key}>
-                        <b>{work.companyName}</b>
-                        <br />
-                        {work.position}
-                      </div>
-                      <br />
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </ResumeSection>
-        </PDFExport>
+              <div className="resume-data">
+                <LeftSection>
+                  <div>
+                    <h4>PERSONAL PROFILE</h4>
+                    <div className="section-info">
+                      {resumeData.personalProfile}
+                    </div>
+                  </div>
+                  <div>
+                    <h4>SKILLS</h4>
+                    <div className="section-info">
+                      {resumeData.skills.join(", ")}
+                    </div>
+                  </div>
+                  <div>
+                    <h4>PROJECTS</h4>
+
+                    {resumeData.projects.map((project, key) => {
+                      return (
+                        <div key={key} className="section-info">
+                          <div>
+                            <b>{project.name}</b>
+                            <br />
+                            {project.details}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="contacts">
+                    <h4>CONTACT DETAILS</h4>
+                    <div className="section-info">
+                      {resumeData.personalDetails.contactDetails.email}
+                    </div>
+                    <div className="section-info">
+                      {resumeData.personalDetails.contactDetails.phone}
+                    </div>
+                  </div>
+                </LeftSection>
+                <RightSection>
+                  <div>
+                    <h4>EDUCATION DETAILS</h4>
+
+                    {resumeData.educationDetails.map((item, key) => {
+                      return (
+                        <div key={key} className="section-info">
+                          <div>
+                            <div>
+                              <b>{item.graduationDegree}</b>
+                            </div>
+                            <div>{item.collegeName}</div>
+                            <div>{item.passingYear}</div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div>
+                    <h4>WORK EXPERIENCE</h4>
+
+                    {resumeData.workExperience.map((work, key) => {
+                      return (
+                        <div key={key} className="section-info">
+                          <div>
+                            <b>{work.companyName}</b>
+                            <br />
+                            {work.position}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </RightSection>
+              </div>
+            </ResumePage>
+          </PDFExport>
+        </ResumeSection>
       </div>
       <StyledButton primary={true} onClick={handleExportWithComponent}>
         Download
