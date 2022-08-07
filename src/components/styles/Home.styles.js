@@ -6,7 +6,7 @@ export const HomeDiv = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 export const HomeContent = styled.div`
@@ -26,11 +26,11 @@ export const Intro = styled.div`
   justify-content: center;
   margin: auto;
   h1 {
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-weight: 500;
   }
   p {
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: #606060;
     span {
       color: #4caf50;
@@ -43,15 +43,16 @@ export const HomeGraphic = styled.div`
   height: 90vh;
   border-radius: 10px;
   color: white;
-  background-color: #5ccd60;
+  background-color: #4caf50;
   display: flex;
+  box-shadow: 10px 10px 30px gray;
   flex-direction: column;
   align-items: center;
   margin: auto;
   div {
     width: 90%;
     margin: auto;
-    font-size: 3rem;
+    font-size: 2.5rem;
     text-align: center;
     word-wrap: break-word;
   }

@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const StyledButton = styled.button`
   display: flex;
+  align-items: center;
   justify-content: space-evenly;
   border: ${(props) =>
     props.variant === "outline" ? "2px solid #4caf50" : "none"};

@@ -13,6 +13,7 @@ const initialState = {
     educationDetails: [],
     skills: [],
     projects: [],
+    certifications: [],
     workExperience: [],
   },
 };
@@ -34,6 +35,7 @@ const resumeReducer = (state = initialState, action) => {
           educationDetails: action.payload.educationDetails,
           skills: action.payload.skills,
           projects: action.payload.projects,
+          certifications: action.payload.certifications,
           workExperience: action.payload.workExperience,
         },
       };

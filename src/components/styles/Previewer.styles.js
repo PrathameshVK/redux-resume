@@ -17,6 +17,10 @@ export const ResumeSection = styled.div`
   margin: 0 auto;
 `;
 
+export const SectionItem = styled.div`
+  margin: 10px;
+`;
+
 export const ResumePage = styled.div`
   display: flex;
   flex-direction: column;
@@ -27,7 +31,14 @@ export const ResumePage = styled.div`
   .name {
     height: 5%;
     font-size: 3rem;
+    font-weight: 600;
     margin: 20px auto;
+    margin-top: 80px;
+    width: 90%;
+    padding-bottom: 10px;
+    text-align: center;
+    border-bottom: 5px solid #c1f2f7;
+    /* background-color: #00bfd1; */
   }
   .resume-data {
     width: 100%;
@@ -36,6 +47,10 @@ export const ResumePage = styled.div`
     flex-direction: row;
     .section-info {
       color: #3d3d3d;
+    }
+    h4 {
+      width: fit-content;
+      background-image: linear-gradient(180deg, white 70%, #c1f2f7 30%);
     }
   }
   .skills-list {

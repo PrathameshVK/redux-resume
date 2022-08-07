@@ -35,13 +35,21 @@ function Editor() {
   const [skill, setSkill] = useState("");
   const [skillList, setSkillList] = useState([]);
   const [newProject, setNewProject] = useState({
-    name: "",
-    details: "",
+    projectName: "",
+    projectDetails: "",
   });
   const [projectsList, setProjectsList] = useState([]);
+  const [newCertification, setNewCertification] = useState({
+    certificationName: "",
+    certificationDetails: "",
+    certificationDate: "",
+  });
+  const [certificationList, setCertificationList] = useState([]);
   const [workExp, setWorkExp] = useState({
     companyName: "",
     position: "",
+    startDate: "",
+    endDate: "",
   });
   const [workExpList, setWorkExpList] = useState([]);
 
@@ -132,7 +140,7 @@ function Editor() {
     setNewProject((prevState) => {
       return {
         ...prevState,
-        name: event.target.value,
+        projectName: event.target.value,
       };
     });
   };
@@ -141,7 +149,7 @@ function Editor() {
     setNewProject((prevState) => {
       return {
         ...prevState,
-        details: event.target.value,
+        projectDetails: event.target.value,
       };
     });
   };
@@ -149,8 +157,44 @@ function Editor() {
   const addNewProject = () => {
     setProjectsList((prevState) => [...prevState, newProject]);
     setNewProject({
-      name: "",
-      details: "",
+      projectName: "",
+      projectDetails: "",
+    });
+  };
+
+  const handleCertificationName = (event) => {
+    setNewCertification((prevState) => {
+      return {
+        ...prevState,
+        certificationName: event.target.value,
+      };
+    });
+  };
+
+  const handleCertificationDetails = (event) => {
+    setNewCertification((prevState) => {
+      return {
+        ...prevState,
+        certificationDetails: event.target.value,
+      };
+    });
+  };
+
+  const handleCertificationDate = (event) => {
+    setNewCertification((prevState) => {
+      return {
+        ...prevState,
+        certificationDate: event.target.value,
+      };
+    });
+  };
+
+  const addNewCertification = () => {
+    setCertificationList((prevState) => [...prevState, newCertification]);
+    setNewCertification({
+      certificationName: "",
+      certificationDetails: "",
+      certificationDate: "",
     });
   };
 
@@ -188,6 +232,7 @@ function Editor() {
     setPersonalDetails(resumeData.personalDetails);
     setEducationDetails(resumeData.educationDetails);
     setSkillList(resumeData.skills);
+    setCertificationList(resumeData.certifications);
     setWorkExpList(resumeData.workExperience);
     setProjectsList(resumeData.projects);
   }, [resumeData]);
@@ -207,7 +252,6 @@ function Editor() {
         </div>
         <div>
           <StyledInputTextArea
-            r
             type="text"
             placeholder="objective"
             value={personalProfile || ""}
@@ -302,12 +346,15 @@ function Editor() {
       <StyledSection>
         <div>
           <h1>Skills</h1>
-          <p>Tell us about your skills</p>
+          <p>Add your skills one by one. Show 'em all !</p>
         </div>
         <div>
           <StyledInputText
             value={skill}
             onChange={handleSkill}
+            onKeyDown={(e) => {
+              e.key === "Enter" && addSkill();
+            }}
             type="text"
             placeholder="skill"
           />
@@ -317,8 +364,8 @@ function Editor() {
             {skillList &&
               skillList.map((skill, key) => {
                 return (
-                  <div key={key}>
-                    {skill}
+                  <div className="skill-tag" key={key}>
+                    <div className="skill-name">{skill}</div>
                     <MdClose
                       onClick={() => {
                         setSkillList(
@@ -340,14 +387,14 @@ function Editor() {
         <div>
           <StyledInputText
             type="text"
-            value={newProject.name || ""}
+            value={newProject.projectName || ""}
             onChange={handleProjectName}
             placeholder="project name"
           />
           <br />
           <StyledInputText
             type="text"
-            value={newProject.details || ""}
+            value={newProject.projectDetails || ""}
             onChange={handleProjectDetails}
             placeholder="project details"
           />
@@ -360,7 +407,7 @@ function Editor() {
                   <ItemCard key={key}>
                     <div className="header">
                       <div className="header-name">
-                        <span>{project.name}</span>
+                        <span>{project.projectName}</span>
                       </div>
                       <MdClose
                         onClick={() => {
@@ -370,7 +417,64 @@ function Editor() {
                         }}
                       />
                     </div>
-                    <div className="item-details">{project.details}</div>
+                    <div className="item-details">{project.projectDetails}</div>
+                  </ItemCard>
+                );
+              })}
+          </StyledItemList>
+        </div>
+      </StyledSection>
+      <StyledSection>
+        <div>
+          <h1>Certifications & Courses</h1>
+          <p>Time to tell about your achievements !</p>
+        </div>
+        <div>
+          <StyledInputText
+            type="text"
+            value={newCertification.certificationName || ""}
+            onChange={handleCertificationName}
+            placeholder="certification name"
+          />
+          <br />
+          <StyledInputText
+            type="text"
+            value={newCertification.certificationDetails || ""}
+            onChange={handleCertificationDetails}
+            placeholder="certification details"
+          />
+          <br />
+          <StyledInputText
+            type="text"
+            value={newCertification.certificationDate || ""}
+            onChange={handleCertificationDate}
+            placeholder="certification date (month, year)"
+          />
+          <br />
+          <StyledAddButton onClick={addNewCertification}>Add</StyledAddButton>
+          <StyledItemList>
+            {certificationList &&
+              certificationList.map((certificate, key) => {
+                return (
+                  <ItemCard key={key}>
+                    <div className="header">
+                      <div className="header-name">
+                        <span>{certificate.certificationName}</span>
+                      </div>
+                      <MdClose
+                        onClick={() => {
+                          setCertificationList(
+                            certificationList.filter(
+                              (certificate, id) => id !== key
+                            )
+                          );
+                        }}
+                      />
+                    </div>
+                    <div className="item-details">
+                      {certificate.certificationDetails},{" "}
+                      {certificate.certificationDate}
+                    </div>
                   </ItemCard>
                 );
               })}
@@ -431,6 +535,7 @@ function Editor() {
                 personalDetails: personalDetails,
                 educationDetails: educationDetails,
                 skills: skillList,
+                certifications: certificationList,
                 workExperience: workExpList,
                 projects: projectsList,
               })

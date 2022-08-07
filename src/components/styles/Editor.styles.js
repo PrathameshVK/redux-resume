@@ -35,17 +35,20 @@ export const StyledSkillsList = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   gap: 5px;
-  div {
+  .skill-tag {
     display: flex;
     gap: 5px;
-    word-break: break-all;
-    word-wrap: break-word;
     align-items: center;
     max-width: 400px;
     padding: 5px 8px;
     border: 1px solid #4caf50;
     border-radius: 5px;
     color: #4caf50;
+    .skill-name {
+      max-width: 95%;
+      word-wrap: break-word;
+      word-break: break-all;
+    }
   }
 `;
 
@@ -73,6 +76,9 @@ export const ItemCard = styled.div`
     color: #4caf50;
     font-size: 1rem;
     font-weight: bold;
+    max-width: 95%;
+    word-wrap: break-word;
+    word-break: break-all;
   }
   .item-details {
     color: #747474;

@@ -9,6 +9,7 @@ import {
   ResumePage,
   LeftSection,
   RightSection,
+  SectionItem,
 } from "./styles/Previewer.styles";
 import { PDFExport } from "@progress/kendo-react-pdf";
 
@@ -54,57 +55,88 @@ function Previewer() {
 
                     {resumeData.projects.map((project, key) => {
                       return (
-                        <div key={key} className="section-info">
+                        <SectionItem key={key}>
                           <div>
-                            <b>{project.name}</b>
+                            <b>{project.projectName}</b>
                             <br />
-                            {project.details}
+                            <span className="section-info">
+                              {project.projectDetails}
+                            </span>
                           </div>
-                        </div>
+                        </SectionItem>
                       );
                     })}
                   </div>
                   <div className="contacts">
                     <h4>CONTACT DETAILS</h4>
-                    <div className="section-info">
-                      {resumeData.personalDetails.contactDetails.email}
-                    </div>
-                    <div className="section-info">
-                      {resumeData.personalDetails.contactDetails.phone}
-                    </div>
+                    <SectionItem>
+                      Email :{" "}
+                      <span className="section-info">
+                        {resumeData.personalDetails.contactDetails.email}
+                      </span>
+                    </SectionItem>
+                    <SectionItem>
+                      Phone :{" "}
+                      <span className="section-info">
+                        {resumeData.personalDetails.contactDetails.phone}
+                      </span>
+                    </SectionItem>
                   </div>
                 </LeftSection>
                 <RightSection>
                   <div>
-                    <h4>EDUCATION DETAILS</h4>
+                    <h4>ACADEMICS</h4>
 
                     {resumeData.educationDetails.map((item, key) => {
                       return (
-                        <div key={key} className="section-info">
+                        <SectionItem key={key}>
                           <div>
                             <div>
                               <b>{item.graduationDegree}</b>
                             </div>
-                            <div>{item.collegeName}</div>
-                            <div>{item.passingYear}</div>
+                            <div className="section-info">
+                              {item.collegeName}
+                            </div>
+                            <div className="section-info">
+                              {item.passingYear}
+                            </div>
                           </div>
-                        </div>
+                        </SectionItem>
                       );
                     })}
                   </div>
+                  <div>
+                    <h4>COURSES AND CERTIFICATIONS</h4>
 
+                    {resumeData.certifications.map((certificate, key) => {
+                      return (
+                        <SectionItem key={key}>
+                          <div>
+                            <b>{certificate.certificationName}</b>
+                            <br />
+                            <span className="section-info">
+                              {certificate.certificationDetails},{" "}
+                              {certificate.certificationDate}
+                            </span>
+                          </div>
+                        </SectionItem>
+                      );
+                    })}
+                  </div>
                   <div>
                     <h4>WORK EXPERIENCE</h4>
 
                     {resumeData.workExperience.map((work, key) => {
                       return (
-                        <div key={key} className="section-info">
+                        <SectionItem key={key}>
                           <div>
                             <b>{work.companyName}</b>
                             <br />
-                            {work.position}
+                            <span className="section-info">
+                              {work.position}
+                            </span>
                           </div>
-                        </div>
+                        </SectionItem>
                       );
                     })}
                   </div>
